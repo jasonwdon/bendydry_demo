@@ -1,4 +1,4 @@
-import { loadModel } from './generator.js';
+import { loadModel } from './generator.js?v=3';
 
 const $ = (id) => document.getElementById(id);
 const form = $('controls');
@@ -8,6 +8,7 @@ const list = $('names');
 for (const id of ['temperature', 'max-length']) {
   const input = $(id);
   const out = $(`${id}-out`);
+  if (!input || !out) continue;
   input.addEventListener('input', () => { out.textContent = input.value; });
 }
 
@@ -42,7 +43,7 @@ form.addEventListener('submit', (e) => {
   if (model) generate();
 });
 
-loadModel('model.json')
+loadModel('model.json?v=3')
   .then((m) => { model = m; return generate(); })
   .catch((err) => {
     button.textContent = 'Unavailable';
