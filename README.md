@@ -8,8 +8,8 @@ trained on a few hundred hand-written alternatives. `generator.js` runs it in
 plain JavaScript from the weights in `model.json`, so there's no server and no
 build step.
 
-Controls: weirdness (sampling temperature), how many names, max length, and an
-optional starting text.
+Controls: temperature (randomness), max length, and an optional starting
+text. Each run makes 10 names.
 
 ## Run it locally
 

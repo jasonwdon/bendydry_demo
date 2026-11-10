@@ -5,7 +5,7 @@ const form = $('controls');
 const button = $('generate');
 const list = $('names');
 
-for (const id of ['temperature', 'count', 'max-length']) {
+for (const id of ['temperature', 'max-length']) {
   const input = $(id);
   const out = $(`${id}-out`);
   input.addEventListener('input', () => { out.textContent = input.value; });
@@ -28,7 +28,7 @@ async function generate() {
   await new Promise((r) => setTimeout(r, 20));
   const names = model.generate({
     temperature: Number($('temperature').value),
-    count: Number($('count').value),
+    count: 10,
     maxLength: Number($('max-length').value),
     prefix: $('prefix').value,
   });
