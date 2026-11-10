@@ -137,5 +137,6 @@ footer a {
 @media (max-width: 640px) {
   main { grid-template-columns: 1fr; }
   h1 { font-size: 2.3rem; }
+  .tagline { font-size: clamp(16px, calc((100vw - 32px) * 0.055), 22px); }
   header { padding-top: 32px; }
 }
