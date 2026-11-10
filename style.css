@@ -98,7 +98,7 @@ button {
 }
 
 button:hover:not(:disabled) { background: var(--ink); color: var(--paper); }
-button:disabled { cursor: wait; opacity: 0.7; }
+button:disabled { opacity: 0.7; }
 
 .names {
   margin: 0;
