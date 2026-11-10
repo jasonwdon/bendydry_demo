@@ -82,6 +82,7 @@ input[type="text"] {
   border-radius: 12px 4px 12px 4px;
   background: var(--paper);
   width: 100%;
+  cursor: text;
 }
 
 button {
