@@ -12,12 +12,42 @@ for (const id of ['temperature', 'max-length']) {
   input.addEventListener('input', () => { out.textContent = input.value; });
 }
 
+const CHAR_MS = 35;
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let typing;
+
+// Type every name in one character at a time, all lines in step.
+// Each line holds a shown part and a hidden rest, so wrapping never shifts.
 function show(names) {
-  list.replaceChildren(...names.map((name) => {
+  clearInterval(typing);
+  const lines = names.map((name) => {
     const li = document.createElement('li');
-    li.textContent = name;
-    return li;
-  }));
+    const shown = document.createElement('span');
+    const rest = document.createElement('span');
+    rest.className = 'unshown';
+    rest.textContent = name;
+    li.append(shown, rest);
+    return { name, li, shown, rest };
+  });
+  list.replaceChildren(...lines.map((l) => l.li));
+  const longest = Math.max(...names.map((n) => n.length));
+  if (reduceMotion.matches) {
+    lines.forEach((l) => { l.shown.textContent = l.name; l.rest.textContent = ''; });
+    return;
+  }
+  list.setAttribute('aria-busy', 'true');
+  let i = 0;
+  typing = setInterval(() => {
+    i += 1;
+    for (const l of lines) {
+      l.shown.textContent = l.name.slice(0, i);
+      l.rest.textContent = l.name.slice(i);
+    }
+    if (i >= longest) {
+      clearInterval(typing);
+      list.setAttribute('aria-busy', 'false');
+    }
+  }, CHAR_MS);
 }
 
 let model;
