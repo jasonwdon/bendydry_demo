@@ -114,7 +114,10 @@ footer {
 }
 
 footer p { margin: 0 0 6px; }
-footer a { color: var(--ink); }
+footer a {
+  color: var(--ink);
+  cursor: pointer;
+}
 
 @media (max-width: 640px) {
   main { grid-template-columns: 1fr; }
