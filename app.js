@@ -49,7 +49,11 @@ form.addEventListener('submit', (e) => {
 });
 
 loadModel('model.json?v=4')
-  .then((m) => { model = m; return generate(); })
+  .then((m) => {
+    model = m;
+    button.disabled = false;
+    button.textContent = 'Generate names';
+  })
   .catch((err) => {
     button.textContent = 'Unavailable';
     show([err.message]);
