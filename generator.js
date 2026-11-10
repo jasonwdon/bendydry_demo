@@ -16,6 +16,15 @@ const GATES = {
   sigmoid: (x) => 1 / (1 + Math.exp(-x)),
 };
 
+// Names that should never be shown. Add more in lower case.
+// A name is dropped (and replaced) if its letters contain any of these.
+const BLOCKED = ['cumonhersnatch'];
+
+function isBlocked(name) {
+  const letters = name.toLowerCase().replace(/[^a-z]/g, '');
+  return BLOCKED.some((word) => letters.includes(word));
+}
+
 export class NameModel {
   constructor(m) {
     this.chars = m.chars;
@@ -104,7 +113,7 @@ export class NameModel {
     const seen = new Set();
     for (let tries = 0; names.length < count && tries < count * 10; tries++) {
       const name = this.generateOne(opts);
-      if (!name) continue;
+      if (!name || isBlocked(name)) continue;
       const key = name.toLowerCase();
       if (unique && seen.has(key)) continue;
       seen.add(key);

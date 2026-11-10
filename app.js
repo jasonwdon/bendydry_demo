@@ -1,4 +1,4 @@
-import { loadModel } from './generator.js?v=4';
+import { loadModel } from './generator.js?v=5';
 
 const $ = (id) => document.getElementById(id);
 const form = $('controls');
