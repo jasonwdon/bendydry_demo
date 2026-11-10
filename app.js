@@ -21,10 +21,12 @@ function show(names) {
 }
 
 let model;
+const MIN_LOADING_MS = 500;
 
 async function generate() {
   button.disabled = true;
   button.textContent = 'Thinking…';
+  const started = performance.now();
   // Let the button repaint before the (short) blocking work.
   await new Promise((r) => setTimeout(r, 20));
   const names = model.generate({
@@ -33,6 +35,9 @@ async function generate() {
     maxLength: Number($('max-length').value),
     prefix: $('prefix').value,
   });
+  // Keep the loading state up long enough to read, so the button doesn't flash.
+  const left = MIN_LOADING_MS - (performance.now() - started);
+  if (left > 0) await new Promise((r) => setTimeout(r, left));
   show(names.length ? names : ['Nothing came out. Try a different start.']);
   button.disabled = false;
   button.textContent = 'Generate names';
