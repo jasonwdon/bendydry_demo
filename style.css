@@ -1,0 +1,120 @@
+:root {
+  --ink: #222;
+  --muted: #555;
+  --paper: #fffdf7;
+  --card: #ffffff;
+  --accent: #ffd36b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 16px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Gaegu', 'Comic Sans MS', cursive;
+  font-size: 22px;
+  line-height: 1.35;
+}
+
+header, main, footer {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+  padding: 48px 0 24px;
+}
+
+h1 { font-size: 3rem; margin: 0 0 6px; }
+
+.tagline { margin: 0; color: var(--muted); }
+
+main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.card {
+  background: var(--card);
+  border: 3px solid var(--ink);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  padding: 22px 26px;
+  box-shadow: 6px 6px 0 var(--accent);
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 18px;
+}
+
+.row > span:first-child {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+}
+
+output { font-weight: 400; }
+
+.hint {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75em;
+  color: var(--muted);
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--ink);
+}
+
+input[type="text"] {
+  font: inherit;
+  padding: 4px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 12px 4px 12px 4px;
+  background: var(--paper);
+  width: 100%;
+}
+
+button {
+  font: inherit;
+  font-weight: 700;
+  width: 100%;
+  padding: 6px 16px;
+  border: 3px solid var(--ink);
+  border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px;
+  background: var(--accent);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) { background: var(--ink); color: var(--paper); }
+button:disabled { cursor: wait; opacity: 0.7; }
+
+.names {
+  margin: 0;
+  padding-left: 56px;
+  min-height: 200px;
+}
+
+.names li { padding: 2px 0; overflow-wrap: anywhere; }
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  padding: 40px 0 28px;
+  font-size: 0.85em;
+}
+
+@media (max-width: 640px) {
+  main { grid-template-columns: 1fr; }
+  h1 { font-size: 2.3rem; }
+  header { padding-top: 32px; }
+}

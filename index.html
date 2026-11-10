@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bendydry Cumberban</title>
+  <meta name="description" content="A tiny neural network that makes up names for Benedict Cumberbatch.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Bendydry Cumberban</h1>
+    <p class="tagline">A tiny neural network that makes up names for Benedict Cumberbatch.</p>
+  </header>
+
+  <main>
+    <form id="controls" class="card">
+      <label class="row" for="temperature">
+        <span>Weirdness <output id="temperature-out">0.7</output></span>
+        <input id="temperature" type="range" min="0.2" max="1.5" step="0.1" value="0.7">
+        <span class="hint"><span>safe</span><span>unhinged</span></span>
+      </label>
+
+      <label class="row" for="count">
+        <span>How many <output id="count-out">10</output></span>
+        <input id="count" type="range" min="1" max="20" step="1" value="10">
+      </label>
+
+      <label class="row" for="max-length">
+        <span>Max length <output id="max-length-out">30</output></span>
+        <input id="max-length" type="range" min="10" max="40" step="1" value="30">
+      </label>
+
+      <label class="row" for="prefix">
+        <span>Starts with</span>
+        <input id="prefix" type="text" maxlength="12" placeholder="Anything, or leave blank" autocomplete="off">
+      </label>
+
+      <button id="generate" type="submit" disabled>Loading…</button>
+    </form>
+
+    <ol id="names" class="card names" aria-live="polite"></ol>
+  </main>
+
+  <footer>
+    <p>An LSTM trained on a few hundred hand-written alternatives, running right in your browser.</p>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
