@@ -1,4 +1,4 @@
-import { loadModel } from './generator.js?v=6';
+import { loadModel } from './generator.js?v=7';
 
 const $ = (id) => document.getElementById(id);
 const form = $('controls');
@@ -17,32 +17,20 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let typing;
 
 // Type every name in one character at a time, all lines in step.
-// Each line holds a shown part and a hidden rest, so wrapping never shifts.
+// Only typed characters are in the page, so a line wraps when the typing reaches it.
 function show(names) {
   clearInterval(typing);
-  const lines = names.map((name) => {
-    const li = document.createElement('li');
-    const shown = document.createElement('span');
-    const rest = document.createElement('span');
-    rest.className = 'unshown';
-    rest.textContent = name;
-    li.append(shown, rest);
-    return { name, li, shown, rest };
-  });
+  const lines = names.map((name) => ({ name, li: document.createElement('li') }));
   list.replaceChildren(...lines.map((l) => l.li));
   const longest = Math.max(...names.map((n) => n.length));
-  if (reduceMotion.matches) {
-    lines.forEach((l) => { l.shown.textContent = l.name; l.rest.textContent = ''; });
-    return;
-  }
+  let i = reduceMotion.matches ? longest : 1;
+  const draw = () => { for (const l of lines) l.li.textContent = l.name.slice(0, i); };
+  draw();
+  if (i >= longest) return;
   list.setAttribute('aria-busy', 'true');
-  let i = 0;
   typing = setInterval(() => {
     i += 1;
-    for (const l of lines) {
-      l.shown.textContent = l.name.slice(0, i);
-      l.rest.textContent = l.name.slice(i);
-    }
+    draw();
     if (i >= longest) {
       clearInterval(typing);
       list.setAttribute('aria-busy', 'false');

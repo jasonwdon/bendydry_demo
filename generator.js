@@ -18,7 +18,7 @@ const GATES = {
 
 // Names that should never be shown. Add more in lower case.
 // A name is dropped (and replaced) if its letters contain any of these.
-const BLOCKED = ['cumonhersnatch', 'cuminherslatch'];
+const BLOCKED = ['cumonhersnatch', 'cuminherslatch', 'cumbitch'];
 
 function isBlocked(name) {
   const letters = name.toLowerCase().replace(/[^a-z]/g, '');
