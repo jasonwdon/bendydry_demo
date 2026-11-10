@@ -1,4 +1,4 @@
-import { loadModel } from './generator.js?v=3';
+import { loadModel } from './generator.js?v=4';
 
 const $ = (id) => document.getElementById(id);
 const form = $('controls');
@@ -43,7 +43,7 @@ form.addEventListener('submit', (e) => {
   if (model) generate();
 });
 
-loadModel('model.json?v=3')
+loadModel('model.json?v=4')
   .then((m) => { model = m; return generate(); })
   .catch((err) => {
     button.textContent = 'Unavailable';

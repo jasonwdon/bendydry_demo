@@ -10,7 +10,11 @@ const PRIMERS = [
   'Cucumber Bandersnatch',
 ];
 
-const hardSigmoid = (x) => Math.max(0, Math.min(1, 0.2 * x + 0.5));
+// The original 2019 model used Keras's old hard sigmoid; models from training/ use a plain sigmoid.
+const GATES = {
+  hard_sigmoid: (x) => Math.max(0, Math.min(1, 0.2 * x + 0.5)),
+  sigmoid: (x) => 1 / (1 + Math.exp(-x)),
+};
 
 export class NameModel {
   constructor(m) {
@@ -18,6 +22,7 @@ export class NameModel {
     this.index = new Map(m.chars.map((c, i) => [c, i]));
     this.window = m.window;
     this.units = m.units;
+    this.gate = GATES[m.recurrent_activation || 'hard_sigmoid'] || GATES.hard_sigmoid;
     this.kernel = Float32Array.from(m.lstm_kernel);
     this.recurrent = Float32Array.from(m.lstm_recurrent);
     this.bias = Float32Array.from(m.lstm_bias);
@@ -44,10 +49,10 @@ export class NameModel {
       }
       const hNew = new Float32Array(u), cNew = new Float32Array(u);
       for (let k = 0; k < u; k++) {
-        const i = hardSigmoid(z[k]);
-        const f = hardSigmoid(z[u + k]);
+        const i = this.gate(z[k]);
+        const f = this.gate(z[u + k]);
         const cand = Math.tanh(z[2 * u + k]);
-        const o = hardSigmoid(z[3 * u + k]);
+        const o = this.gate(z[3 * u + k]);
         cNew[k] = f * c[k] + i * cand;
         hNew[k] = o * Math.tanh(cNew[k]);
       }
