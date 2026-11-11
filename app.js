@@ -4,6 +4,10 @@ const $ = (id) => document.getElementById(id);
 const form = $('controls');
 const button = $('generate');
 const list = $('names');
+const found = $('found');
+
+// Every name gets the spellcheck squiggle unless the network got it right.
+const REAL = 'Benedict Cumberbatch';
 
 for (const id of ['temperature', 'max-length']) {
   const input = $(id);
@@ -20,11 +24,17 @@ let typing;
 // Only typed characters are in the page, so a line wraps when the typing reaches it.
 function show(names) {
   clearInterval(typing);
-  const lines = names.map((name) => ({ name, li: document.createElement('li') }));
+  // the name sits in a span so the spellcheck squiggle runs under the name only, not the number
+  const lines = names.map((name) => {
+    const li = document.createElement('li');
+    const text = li.appendChild(document.createElement('span'));
+    if (name === REAL) text.className = 'correct';
+    return { name, li, text };
+  });
   list.replaceChildren(...lines.map((l) => l.li));
   const longest = Math.max(...names.map((n) => n.length));
   let i = reduceMotion.matches ? longest : 1;
-  const draw = () => { for (const l of lines) l.li.textContent = l.name.slice(0, i); };
+  const draw = () => { for (const l of lines) l.text.textContent = l.name.slice(0, i); };
   draw();
   if (i >= longest) return;
   list.setAttribute('aria-busy', 'true');
@@ -65,6 +75,8 @@ async function generate() {
   const left = MIN_LOADING_MS - (performance.now() - started);
   if (left > 0) await new Promise((r) => setTimeout(r, left));
   show(names.length ? names : ['Nothing came out. Try a different start.']);
+  const wrong = names.filter((n) => n !== REAL).length;
+  found.textContent = names.length ? `${wrong} misspelling${wrong === 1 ? '' : 's'}` : '';
   button.disabled = false;
   button.textContent = 'Generate names';
 }

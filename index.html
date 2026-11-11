@@ -7,43 +7,49 @@
   <meta name="description" content="A tiny neural network that can’t quite remember how to spell Benedict Cumberbatch">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=14">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=15">
 </head>
 <body>
   <header>
-    <h1>Bendydry Cumberban</h1>
+    <h1><span class="squiggle">Bendydry Cumberban</span></h1>
     <p class="tagline">A tiny neural network that can't quite remember how to spell Benedict Cumberbatch</p>
   </header>
 
   <main>
     <form id="controls" class="card">
-      <label class="row" for="temperature">
-        <span>Temperature (Randomness) <output id="temperature-out">0.7</output></span>
-        <input id="temperature" type="range" min="0.2" max="1.5" step="0.1" value="0.7">
-        <span class="hint"><span>controlled</span><span>chaotic</span></span>
-      </label>
+      <div class="strip"><span>Settings</span></div>
+      <div class="fields">
+        <label class="row" for="temperature">
+          <span>Temperature (Randomness) <output id="temperature-out">0.7</output></span>
+          <input id="temperature" type="range" min="0.2" max="1.5" step="0.1" value="0.7">
+          <span class="hint"><span>controlled</span><span>chaotic</span></span>
+        </label>
 
-      <label class="row" for="max-length">
-        <span>Max length <output id="max-length-out">30</output></span>
-        <input id="max-length" type="range" min="10" max="40" step="1" value="30">
-      </label>
+        <label class="row" for="max-length">
+          <span>Max length <output id="max-length-out">30</output></span>
+          <input id="max-length" type="range" min="10" max="40" step="1" value="30">
+        </label>
 
-      <label class="row" for="prefix">
-        <span>Starts with</span>
-        <input id="prefix" type="text" maxlength="12" placeholder="Anything, or leave blank" autocomplete="off">
-      </label>
+        <label class="row" for="prefix">
+          <span>Starts with</span>
+          <input id="prefix" type="text" maxlength="12" placeholder="Anything, or leave blank" autocomplete="off">
+        </label>
 
-      <button id="generate" type="submit">Generate names</button>
+        <button id="generate" type="submit">Generate names</button>
+      </div>
     </form>
 
-    <ol id="names" class="card names" aria-live="polite"></ol>
+    <section class="card results">
+      <div class="strip"><span>names.txt</span><span id="found" class="found"></span></div>
+      <ol id="names" class="names" aria-live="polite"></ol>
+    </section>
   </main>
 
   <footer>
     <p><a href="https://jasonwdon.github.io/">By Jason</a></p>
   </footer>
 
-  <script type="module" src="app.js?v=11"></script>
+  <script type="module" src="app.js?v=12"></script>
 </body>
 </html>
