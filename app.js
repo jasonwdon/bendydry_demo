@@ -38,13 +38,21 @@ function show(names) {
   }, CHAR_MS);
 }
 
-let model;
+// Start loading right away; a click before it's ready waits for it.
+const modelReady = loadModel('model.json?v=4');
+let failed = false;
 const MIN_LOADING_MS = 500;
 
 async function generate() {
   button.disabled = true;
   button.textContent = 'Thinking…';
   const started = performance.now();
+  let model;
+  try {
+    model = await modelReady;
+  } catch {
+    return; // the load failure below shows "Unavailable"
+  }
   // Let the button repaint before the (short) blocking work.
   await new Promise((r) => setTimeout(r, 20));
   const names = model.generate({
@@ -63,16 +71,12 @@ async function generate() {
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-  if (model) generate();
+  if (!button.disabled && !failed) generate();
 });
 
-loadModel('model.json?v=4')
-  .then((m) => {
-    model = m;
-    button.disabled = false;
-    button.textContent = 'Generate names';
-  })
-  .catch((err) => {
-    button.textContent = 'Unavailable';
-    show([err.message]);
-  });
+modelReady.catch((err) => {
+  failed = true;
+  button.disabled = true;
+  button.textContent = 'Unavailable';
+  show([err.message]);
+});
