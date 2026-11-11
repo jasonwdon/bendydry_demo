@@ -75,6 +75,10 @@ input[type="range"] {
   cursor: pointer;
 }
 
+/* the thumb is drawn separately in some browsers, so give it the pointer too */
+input[type="range"]::-webkit-slider-thumb { cursor: pointer; }
+input[type="range"]::-moz-range-thumb { cursor: pointer; }
+
 input[type="text"] {
   font: inherit;
   padding: 4px 12px;
