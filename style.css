@@ -6,7 +6,10 @@
   --accent: #ffd36b;
   --red: #d93025;
   --rule: #e4e4df;
-  --mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  --hand: 'Gaegu', 'Comic Sans MS', cursive;
+  /* a gentle hand-drawn wobble, much calmer than the old one */
+  --wobble: 14px 6px 16px 5px / 6px 14px 5px 16px;
+  --wobble-sm: 8px 3px 8px 3px;
 }
 
 * { box-sizing: border-box; }
@@ -16,7 +19,7 @@ body {
   padding: 0 16px;
   background: var(--paper);
   color: var(--ink);
-  font-family: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Nunito', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
   font-size: 17px;
   line-height: 1.45;
 }
@@ -29,10 +32,10 @@ header, main, footer {
 header { padding: 48px 0 28px; }
 
 h1 {
-  font-size: 3.6rem;
-  font-weight: 800;
-  letter-spacing: -0.035em;
-  line-height: 0.98;
+  font-family: var(--hand);
+  font-size: 4rem;
+  font-weight: 400;
+  line-height: 1;
   margin: 0 0 12px;
 }
 
@@ -56,6 +59,8 @@ main {
 .card {
   background: var(--card);
   border: 2px solid var(--ink);
+  border-radius: var(--wobble);
+  overflow: hidden;
 }
 
 /* a yellow label band across the top of each box */
@@ -65,12 +70,12 @@ main {
   gap: 12px;
   background: var(--accent);
   border-bottom: 2px solid var(--ink);
-  padding: 7px 14px 6px;
-  font-family: var(--mono);
-  font-size: 0.68em;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  align-items: baseline;
+  padding: 5px 16px 3px;
+  font-family: var(--hand);
+  font-size: 1.05em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .strip .found { color: var(--red); }
@@ -90,19 +95,12 @@ main {
   font-weight: 600;
 }
 
-output {
-  font-family: var(--mono);
-  font-size: 0.85em;
-  font-weight: 500;
-}
+output { font-weight: 600; }
 
 .hint {
   display: flex;
   justify-content: space-between;
-  font-family: var(--mono);
-  font-size: 0.62em;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 0.75em;
   color: var(--muted);
 }
 
@@ -121,7 +119,7 @@ input[type="text"] {
   font: inherit;
   padding: 8px 10px;
   border: 2px solid var(--ink);
-  border-radius: 0;
+  border-radius: var(--wobble-sm);
   background: var(--paper);
   color: var(--ink);
   width: 100%;
@@ -132,13 +130,13 @@ input[type="text"]:focus { outline: 3px solid var(--accent); outline-offset: 0; 
 
 button {
   font: inherit;
-  font-weight: 600;
+  font-weight: 700;
   width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 11px 16px;
   border: 2px solid var(--ink);
-  border-radius: 0;
+  border-radius: var(--wobble-sm);
   background: var(--accent);
   color: var(--ink);
   cursor: pointer;
@@ -163,9 +161,10 @@ button:disabled::after { content: none; }
   display: grid;
   grid-template-columns: 3.2em 1fr;
   align-items: baseline;
-  padding: 9px 20px;
+  padding: 5px 20px;
   border-bottom: 1px solid var(--rule);
-  font-weight: 600;
+  font-family: var(--hand);
+  font-size: 1.3em;
   overflow-wrap: anywhere;
 }
 
@@ -173,8 +172,8 @@ button:disabled::after { content: none; }
 
 .names li::before {
   content: counter(n, decimal-leading-zero);
-  font-family: var(--mono);
-  font-size: 0.72em;
+  font-family: 'Nunito', 'Segoe UI', sans-serif;
+  font-size: 0.6em;
   font-weight: 400;
   color: var(--muted);
 }
@@ -215,6 +214,6 @@ footer a {
 
 @media (max-width: 640px) {
   main { grid-template-columns: 1fr; }
-  h1 { font-size: 2.6rem; }
+  h1 { font-size: 3rem; }
   header { padding-top: 32px; }
 }
