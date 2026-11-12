@@ -9,7 +9,8 @@ plain JavaScript from the weights in `model.json`, so there's no server and no
 build step. The training data and code are in [training/](training/).
 
 Controls: temperature (randomness), max length, and an optional starting
-text. Each run makes 10 names.
+text. Each run makes 10 names. Every name gets a spellcheck squiggle, and the results box counts
+the misspellings.
 
 ## Run it locally
 
