@@ -6,10 +6,26 @@
   <meta name="color-scheme" content="only light">
   <title>Bendydry Cumberban</title>
   <meta name="description" content="A tiny neural network that can’t quite remember how to spell Benedict Cumberbatch">
+  <script>
+    // Keep the page hidden until its fonts have loaded, then fade it in, and
+    // never for more than 3 seconds. Without JavaScript nothing is hidden.
+    (function () {
+      var root = document.documentElement;
+      function show() { root.classList.remove('loading'); }
+      root.classList.add('loading');
+      setTimeout(show, 3000);
+      document.addEventListener('DOMContentLoaded', function () {
+        if (!document.fonts) return show();
+        Promise.all(['400 1em Gaegu', '700 1em Gaegu', '400 1em Nunito', '600 1em Nunito', '700 1em Nunito']
+          .map(function (f) { return document.fonts.load(f); }))
+          .then(function () { requestAnimationFrame(show); }, show);
+      });
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=17">
+  <link rel="stylesheet" href="style.css?v=18">
 </head>
 <body>
   <header>

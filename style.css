@@ -219,3 +219,8 @@ footer a {
   h1 { font-size: 3rem; }
   header { padding-top: 32px; }
 }
+
+/* hidden while the fonts load (see index.html's head), then faded in */
+body > * { transition: opacity .2s ease; }
+html.loading body > * { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { body > * { transition: none; } }
