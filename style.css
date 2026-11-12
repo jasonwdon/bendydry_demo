@@ -1,4 +1,6 @@
 :root {
+  /* one look only: no dark mode, and no browser auto-darkening */
+  color-scheme: only light;
   --ink: #121212;
   --muted: #5f5f5a;
   --paper: #ffffff;
